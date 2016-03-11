@@ -3,6 +3,7 @@
 	<persistence-unit name="mini-lms">
 	<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 	<class>entities.User</class>
+	<class>entities.Course</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true"/>
