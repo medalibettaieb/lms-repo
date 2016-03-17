@@ -20,6 +20,12 @@ public class Student extends User implements Serializable {
 	public Student() {
 		super();
 	}   
+	
+	public Student(String name,Integer age) {
+		setName(name);
+		this.age = age;
+	}
+
 	public Integer getAge() {
 		return this.age;
 	}

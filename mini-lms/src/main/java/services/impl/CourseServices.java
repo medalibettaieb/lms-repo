@@ -2,14 +2,18 @@ package services.impl;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Course;
+import entities.Inscription;
+import entities.Student;
 import services.interfaces.CourseServicesLocal;
 import services.interfaces.CourseServicesRemote;
+import services.interfaces.UserServicesLocal;
 
 /**
  * Session Bean implementation class CourseServices
@@ -18,6 +22,8 @@ import services.interfaces.CourseServicesRemote;
 public class CourseServices implements CourseServicesRemote, CourseServicesLocal {
 	@PersistenceContext
 	private EntityManager entityManager;
+	@EJB
+	private UserServicesLocal userServicesLocal;
 
 	/**
 	 * Default constructor.
@@ -68,6 +74,22 @@ public class CourseServices implements CourseServicesRemote, CourseServicesLocal
 		String jpql = "select c from Course  c";
 		Query query = entityManager.createQuery(jpql);
 		return query.getResultList();
+	}
+
+	@Override
+	public Boolean registerStudentToCourse(Long idCourse, Long idStudent) {
+		Boolean b = false;
+		try {
+			Course courseFound = findCourseById(idCourse);
+			Student studentFound = (Student) userServicesLocal.findUserById(idStudent);
+
+			Inscription inscription = new Inscription(studentFound, courseFound);
+			entityManager.persist(inscription);
+
+			b = true;
+		} catch (Exception e) {
+		}
+		return b;
 	}
 
 }

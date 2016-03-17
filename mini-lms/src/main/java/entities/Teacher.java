@@ -1,9 +1,8 @@
 package entities;
 
-import entities.User;
 import java.io.Serializable;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
 
 /**
  * Entity implementation class for Entity: Teacher
@@ -20,6 +19,10 @@ public class Teacher extends User implements Serializable {
 	public Teacher() {
 		super();
 	}   
+	public Teacher(String name,String level) {
+		setName(name);
+		setLevel(level);
+	}  
 	public String getLevel() {
 		return this.level;
 	}
