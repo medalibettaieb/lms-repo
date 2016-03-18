@@ -1,8 +1,11 @@
 package training.services.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import training.entities.Player;
 import training.entities.Team;
@@ -35,14 +38,24 @@ public class TrainingServices implements TrainingServicesRemote, TrainingService
 
 	@Override
 	public Team findTeamByPlayerId(Long idPlayer) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "select t from Team t where :param member of t.players";
+		Query query = entityManager.createQuery(jpql, Team.class);
+		Player playerFound = entityManager.find(Player.class, idPlayer);
+		query.setParameter("param", playerFound);
+		return (Team) query.getSingleResult();
 	}
 
 	@Override
 	public void assignPlayerToTeam(Long idPlayer, Long idTeam) {
-		// TODO Auto-generated method stub
-		
+		Team teamFound = entityManager.find(Team.class, idTeam);
+		Player playerFound = entityManager.find(Player.class, idPlayer);
+
+		List<Player> oldPlayers = teamFound.getPlayers();
+		oldPlayers.add(playerFound);
+		teamFound.setPlayers(oldPlayers);
+
+		entityManager.merge(teamFound);
+
 	}
 
 }

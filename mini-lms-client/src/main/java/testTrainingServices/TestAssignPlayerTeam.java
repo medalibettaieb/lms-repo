@@ -1,4 +1,4 @@
-package testsTrainingServices;
+package testTrainingServices;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,6 +13,8 @@ public class TestAssignPlayerTeam {
 		TrainingServicesRemote trainingServicesRemote = (TrainingServicesRemote) context
 				.lookup("/mini-lms/TrainingServices!training.services.interfaces.TrainingServicesRemote");
 		
+		trainingServicesRemote.assignPlayerToTeam(1L, 1L);
+		trainingServicesRemote.assignPlayerToTeam(2L, 1L);
 		
 	}
 
