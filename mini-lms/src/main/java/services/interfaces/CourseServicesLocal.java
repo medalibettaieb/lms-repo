@@ -19,4 +19,8 @@ public interface CourseServicesLocal {
 	List<Course> findAllCourses();
 
 	Boolean registerStudentToCourse(Long idCourse, Long idStudent);
+
+	Boolean assignTeacherToCourseMasterSide(Long idCourse, Long idTeacher);
+
+	Boolean assignTeacherToCourseSlaveSide(Long idCourse, Long idTeacher);
 }

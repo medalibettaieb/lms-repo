@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import entities.Course;
 import entities.Inscription;
 import entities.Student;
+import entities.Teacher;
 import services.interfaces.CourseServicesLocal;
 import services.interfaces.CourseServicesRemote;
 import services.interfaces.UserServicesLocal;
@@ -86,6 +87,40 @@ public class CourseServices implements CourseServicesRemote, CourseServicesLocal
 			Inscription inscription = new Inscription(studentFound, courseFound);
 			entityManager.persist(inscription);
 
+			b = true;
+		} catch (Exception e) {
+		}
+		return b;
+	}
+
+	@Override
+	public Boolean assignTeacherToCourseMasterSide(Long idCourse, Long idTeacher) {
+		Boolean b = false;
+		try {
+			Course courseFound = findCourseById(idCourse);
+			Teacher teacherFound = (Teacher) userServicesLocal.findUserById(idTeacher);
+
+			courseFound.setTeacher(teacherFound);
+
+			updateCourse(courseFound);
+			b = true;
+		} catch (Exception e) {
+		}
+		return b;
+	}
+
+	@Override
+	public Boolean assignTeacherToCourseSlaveSide(Long idCourse, Long idTeacher) {
+		Boolean b = false;
+		try {
+			Course courseFound = findCourseById(idCourse);
+			Teacher teacherFound = (Teacher) userServicesLocal.findUserById(idTeacher);
+
+			List<Course> oldTeachersCourses = teacherFound.getCourses();
+			oldTeachersCourses.add(courseFound);
+			// use of the spesific methode
+			teacherFound.linkCoursesToThisTeacher(oldTeachersCourses);
+			userServicesLocal.updateUser(teacherFound);
 			b = true;
 		} catch (Exception e) {
 		}
