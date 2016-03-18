@@ -8,9 +8,11 @@
 	<class>entities.Student</class>
 	<class>entities.Teacher</class>
 	<class>entities.User</class>
+	<class>training.entities.Player</class>
+	<class>training.entities.Team</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.show_sql" value="false"/>
 			<property name="hibernate.format_sql" value="true"/>
 		</properties>
 	</persistence-unit>
