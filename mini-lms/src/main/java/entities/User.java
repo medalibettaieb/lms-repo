@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class User implements Serializable {
 	private String name;
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "teacher")
+	@OneToMany(mappedBy = "teacher",fetch=FetchType.LAZY)
 	private List<Course> courses;
 	@OneToMany(mappedBy = "user")
 	private List<Inscription> inscriptions;

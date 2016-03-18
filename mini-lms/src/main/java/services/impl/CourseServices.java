@@ -127,4 +127,12 @@ public class CourseServices implements CourseServicesRemote, CourseServicesLocal
 		return b;
 	}
 
+	@Override
+	public List<Course> findAllCoursesByTeacherId(long idTeacher) {
+		String jpql = "select c from Course c where c.teacher.id= :param";
+		Query query = entityManager.createQuery(jpql, Course.class);
+		query.setParameter("param", idTeacher);
+		return query.getResultList();
+	}
+
 }

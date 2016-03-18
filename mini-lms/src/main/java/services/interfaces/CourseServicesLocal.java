@@ -23,4 +23,6 @@ public interface CourseServicesLocal {
 	Boolean assignTeacherToCourseMasterSide(Long idCourse, Long idTeacher);
 
 	Boolean assignTeacherToCourseSlaveSide(Long idCourse, Long idTeacher);
+	
+	List<Course> findAllCoursesByTeacherId(long idTeacher);
 }
