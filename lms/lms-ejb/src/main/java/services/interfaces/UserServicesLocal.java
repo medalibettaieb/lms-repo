@@ -17,4 +17,6 @@ public interface UserServicesLocal {
 	User findUserById(Long id);
 
 	List<User> findAllUsers();
+
+	User login(String login, String password);
 }

@@ -24,6 +24,8 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String login;
+	private String password;
 	private static final long serialVersionUID = 1L;
 
 	@OneToMany(mappedBy = "teacher",fetch=FetchType.LAZY)
@@ -65,6 +67,22 @@ public class User implements Serializable {
 
 	public void setInscriptions(List<Inscription> inscriptions) {
 		this.inscriptions = inscriptions;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.faces.bean.SessionScoped;
 
 import entities.Student;
 import entities.Teacher;
+import entities.User;
 import services.interfaces.UserServicesLocal;
 
 @ManagedBean
@@ -14,6 +15,7 @@ public class UserBean {
 	// models
 	private Student student = new Student();
 	private Teacher teacher = new Teacher();
+	private User user = new User();
 
 	// injection
 	@EJB
@@ -22,12 +24,29 @@ public class UserBean {
 	// methodes
 	public String doAddStudent() {
 		userServicesLocal.addUser(student);
-		return "";
+		return "/greetings?faces-redirect=true";
+	}
+
+	public String doLogin() {
+		String navigateTo = "";
+		User userLoggedIn = userServicesLocal.login(user.getLogin(), user.getPassword());
+		if (userLoggedIn != null) {
+			if (userLoggedIn instanceof Teacher) {
+				navigateTo = "";
+			} else if (userLoggedIn instanceof Student) {
+				navigateTo = "/pages/courseManagement/listCourses";
+			} else {
+				navigateTo = "/pages/userManagement/homeAgent";
+			}
+		} else {
+			navigateTo = "/login.jsf";
+		}
+		return navigateTo;
 	}
 
 	public String doAddTeacher() {
 		userServicesLocal.addUser(teacher);
-		return "";
+		return "/greetings?faces-redirect=true";
 	}
 
 	public Student getStudent() {
@@ -44,6 +63,14 @@ public class UserBean {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
