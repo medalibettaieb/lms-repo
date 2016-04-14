@@ -32,11 +32,12 @@ public class UserBean {
 		User userLoggedIn = userServicesLocal.login(user.getLogin(), user.getPassword());
 		if (userLoggedIn != null) {
 			if (userLoggedIn instanceof Teacher) {
-				navigateTo = "";
+				navigateTo = "/pages/courseManagement/addCourse?faces-redirect=true";
+				user = userLoggedIn;
 			} else if (userLoggedIn instanceof Student) {
-				navigateTo = "/pages/courseManagement/listCourses";
+				navigateTo = "/pages/courseManagement/listCourses?faces-redirect=true";
 			} else {
-				navigateTo = "/pages/userManagement/homeAgent";
+				navigateTo = "/pages/userManagement/homeAgent?faces-redirect=true";
 			}
 		} else {
 			navigateTo = "/login.jsf";

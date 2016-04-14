@@ -12,6 +12,7 @@ import entities.Course;
 import entities.Inscription;
 import entities.Student;
 import entities.Teacher;
+import entities.User;
 import services.interfaces.CourseServicesLocal;
 import services.interfaces.CourseServicesRemote;
 import services.interfaces.UserServicesLocal;
@@ -33,9 +34,10 @@ public class CourseServices implements CourseServicesRemote, CourseServicesLocal
 	}
 
 	@Override
-	public Boolean addCourse(Course course) {
+	public Boolean addCourse(Course course, User user) {
 		Boolean b = false;
 		try {
+			course.setTeacher(user);
 			entityManager.persist(course);
 			b = true;
 		} catch (Exception e) {

@@ -5,10 +5,11 @@ import java.util.List;
 import javax.ejb.Local;
 
 import entities.Course;
+import entities.User;
 
 @Local
 public interface CourseServicesLocal {
-	Boolean addCourse(Course course);
+	Boolean addCourse(Course course, User user);
 
 	Boolean deleteCourseById(Long id);
 

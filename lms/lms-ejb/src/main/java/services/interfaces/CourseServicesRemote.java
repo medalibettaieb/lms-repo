@@ -5,10 +5,11 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import entities.Course;
+import entities.User;
 
 @Remote
 public interface CourseServicesRemote {
-	Boolean addCourse(Course course);
+	Boolean addCourse(Course course, User user);
 
 	Boolean deleteCourseById(Long id);
 

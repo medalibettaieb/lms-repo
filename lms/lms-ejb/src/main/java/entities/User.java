@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,14 +22,15 @@ import javax.persistence.OneToMany;
 public class User implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	@Column(unique = true)
 	private String login;
 	private String password;
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "teacher",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
 	private List<Course> courses;
 	@OneToMany(mappedBy = "user")
 	private List<Inscription> inscriptions;
