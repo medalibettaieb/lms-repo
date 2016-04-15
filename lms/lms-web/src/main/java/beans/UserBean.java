@@ -36,8 +36,10 @@ public class UserBean {
 				user = userLoggedIn;
 			} else if (userLoggedIn instanceof Student) {
 				navigateTo = "/pages/courseManagement/listCourses?faces-redirect=true";
+				user = userLoggedIn;
 			} else {
 				navigateTo = "/pages/userManagement/homeAgent?faces-redirect=true";
+				user = userLoggedIn;
 			}
 		} else {
 			navigateTo = "/login.jsf";
