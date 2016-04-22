@@ -1,6 +1,5 @@
 package beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +15,8 @@ import services.interfaces.CourseServicesLocal;
 @ViewScoped
 public class CourseBean {
 	private Course course = new Course();
-	private List<Course> courses = new ArrayList<Course>();
+	private List<Course> courses;
+	private List<Course> coursesByTeacher;
 	@EJB
 	private CourseServicesLocal courseServicesLocal;
 	@ManagedProperty(value = "#{userBean}")
@@ -24,18 +24,21 @@ public class CourseBean {
 
 	public String doAddCourse() {
 		courseServicesLocal.addCourse(course, userBean.getUser());
-		return "";
+		return "/pages/courseManagement/listCoursesByTeacher?faces-redirect=true";
 	}
+
 	public String doRegisterStudentToCourse(Course course) {
-		Long idCourse=course.getId();
-		Long idStudent=userBean.getUser().getId();
+		Long idCourse = course.getId();
+		Long idStudent = userBean.getUser().getId();
 		courseServicesLocal.registerStudentToCourse(idCourse, idStudent);
-		return "";
+		return "/login?faces-redirect=true";
 	}
 
 	@PostConstruct
-	public void loadAllCourses() {
+	public void init() {
 		courses = courseServicesLocal.findAllCourses();
+		long idTeacher = userBean.getUser().getId();
+		coursesByTeacher = courseServicesLocal.findAllCoursesByTeacherId(idTeacher);
 	}
 
 	public Course getCourse() {
@@ -60,6 +63,14 @@ public class CourseBean {
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
+	}
+
+	public List<Course> getCoursesByTeacher() {
+		return coursesByTeacher;
+	}
+
+	public void setCoursesByTeacher(List<Course> coursesByTeacher) {
+		this.coursesByTeacher = coursesByTeacher;
 	}
 
 }

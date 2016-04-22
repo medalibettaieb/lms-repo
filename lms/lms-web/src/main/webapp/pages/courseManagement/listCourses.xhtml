@@ -6,21 +6,24 @@
 
 <h:head></h:head>
 <body>
-	<h1>list of all courses</h1>
-	<h:dataTable value="#{courseBean.courses}" var="c" border="2">
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="name" />
-			</f:facet>
-			<h:outputText value="#{c.name}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="#" />
-			</f:facet>
-			<h:commandButton action="#{courseBean.doRegisterStudentToCourse(c)}" value="register" />
-		</h:column>
+	<h:form>
+		<h1>list of all courses</h1>
+		<h:dataTable value="#{courseBean.courses}" var="c" border="2">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="name" />
+				</f:facet>
+				<h:outputText value="#{c.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#" />
+				</f:facet>
+				<h:commandButton action="#{courseBean.doRegisterStudentToCourse(c)}"
+					value="register" />
+			</h:column>
 
-	</h:dataTable>
+		</h:dataTable>
+	</h:form>
 </body>
 </html>
