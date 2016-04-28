@@ -17,6 +17,8 @@ public class UserBean {
 	private Teacher teacher = new Teacher();
 	private User user = new User();
 
+	private Boolean loggedInAsTeacher = false;
+
 	// injection
 	@EJB
 	private UserServicesLocal userServicesLocal;
@@ -32,13 +34,14 @@ public class UserBean {
 		User userLoggedIn = userServicesLocal.login(user.getLogin(), user.getPassword());
 		if (userLoggedIn != null) {
 			if (userLoggedIn instanceof Teacher) {
-				navigateTo = "/pages/courseManagement/addCourse?faces-redirect=true";
+				navigateTo = "/pages/teacherHome/addCourse?faces-redirect=true";
 				user = userLoggedIn;
+				loggedInAsTeacher = true;
 			} else if (userLoggedIn instanceof Student) {
-				navigateTo = "/pages/courseManagement/listCourses?faces-redirect=true";
+				navigateTo = "/pages/studentHome/listCourses?faces-redirect=true";
 				user = userLoggedIn;
 			} else {
-				navigateTo = "/pages/userManagement/homeAgent?faces-redirect=true";
+				navigateTo = "/pages/agentHome/homeAgent?faces-redirect=true";
 				user = userLoggedIn;
 			}
 		} else {
@@ -74,6 +77,14 @@ public class UserBean {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Boolean getLoggedInAsTeacher() {
+		return loggedInAsTeacher;
+	}
+
+	public void setLoggedInAsTeacher(Boolean loggedInAsTeacher) {
+		this.loggedInAsTeacher = loggedInAsTeacher;
 	}
 
 }

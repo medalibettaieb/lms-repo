@@ -5,17 +5,17 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	template="/WEB-INF/template/template.xhtml">
-	<ui:define name="pageTitle">login</ui:define>
+	<ui:define name="pageTitle">addStudent</ui:define>
 	<ui:define name="pageContent">
 		<h:form>
-		<h1>login page</h1>
-		<h:panelGrid columns="2">
-			<h:outputText value="login" />
-			<h:inputText value="#{userBean.user.login}" />
-			<h:outputText value="password" />
-			<h:inputSecret value="#{userBean.user.password}" />
-			<h:commandButton action="#{userBean.doLogin()}" value="login" />
-		</h:panelGrid>
-	</h:form>
+			<h1>Add Student</h1>
+			<h:panelGrid columns="2">
+				<h:outputText value="name" />
+				<h:inputText value="#{userBean.student.name}" />
+				<h:outputText value="age" />
+				<h:inputText value="#{userBean.student.age}" />
+				<h:commandButton action="#{userBean.doAddStudent()}" value="add" />
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="pageTitle">teacherHome</ui:define>
+	<ui:define name="pageContent">
+		<h1>welcome Mr/Mrs #{userBean.user.name}</h1>
+		<h2>list of your courses</h2>
+		<h:dataTable value="#{courseBean.coursesByTeacher}" var="c" border="2">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="name" />
+				</f:facet>
+				<h:outputText value="#{c.name}" />
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>
