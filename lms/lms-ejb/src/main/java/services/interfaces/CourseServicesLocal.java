@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import entities.Course;
+import entities.Student;
 import entities.User;
 
 @Local
@@ -24,6 +25,8 @@ public interface CourseServicesLocal {
 	Boolean assignTeacherToCourseMasterSide(Long idCourse, Long idTeacher);
 
 	Boolean assignTeacherToCourseSlaveSide(Long idCourse, Long idTeacher);
-	
+
 	List<Course> findAllCoursesByTeacherId(long idTeacher);
+
+	List<Student> findStudentsByCourseId(Long courseId);
 }

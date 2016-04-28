@@ -1,5 +1,6 @@
 package services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -135,6 +136,17 @@ public class CourseServices implements CourseServicesRemote, CourseServicesLocal
 		Query query = entityManager.createQuery(jpql, Course.class);
 		query.setParameter("param", idTeacher);
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Student> findStudentsByCourseId(Long courseId) {
+		List<Student> students = new ArrayList<>();
+		Course courseFound = findCourseById(courseId);
+		List<Inscription> inscriptions = courseFound.getInscriptions();
+		for (Inscription i : inscriptions) {
+			students.add((Student) i.getUser());
+		}
+		return students;
 	}
 
 }
