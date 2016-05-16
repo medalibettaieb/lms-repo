@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import entities.Course;
 import entities.Student;
+import entities.Theme;
 import entities.User;
 
 @Local
@@ -29,4 +30,10 @@ public interface CourseServicesLocal {
 	List<Course> findAllCoursesByTeacherId(long idTeacher);
 
 	List<Student> findStudentsByCourseId(Long courseId);
+
+	Course findCourseByName(String value);
+
+	Theme findThemeByName(String name);
+
+	List<Theme> findAllThemes();
 }

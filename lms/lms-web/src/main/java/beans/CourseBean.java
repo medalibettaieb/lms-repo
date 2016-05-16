@@ -1,5 +1,7 @@
 package beans;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,14 +11,21 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import entities.Course;
+import entities.Theme;
 import services.interfaces.CourseServicesLocal;
 
 @ManagedBean
 @ViewScoped
-public class CourseBean {
+public class CourseBean implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Course course = new Course();
-	private List<Course> courses;
+	private List<Course> courses = new ArrayList<>();
 	private List<Course> coursesByTeacher;
+	private Course courseSelected = new Course();
+	private List<Theme> themes = new ArrayList<>();
 	@EJB
 	private CourseServicesLocal courseServicesLocal;
 	@ManagedProperty(value = "#{userBean}")
@@ -36,6 +45,7 @@ public class CourseBean {
 
 	@PostConstruct
 	public void init() {
+		themes = courseServicesLocal.findAllThemes();
 		courses = courseServicesLocal.findAllCourses();
 		long idTeacher = userBean.getUser().getId();
 		coursesByTeacher = courseServicesLocal.findAllCoursesByTeacherId(idTeacher);
@@ -71,6 +81,26 @@ public class CourseBean {
 
 	public void setCoursesByTeacher(List<Course> coursesByTeacher) {
 		this.coursesByTeacher = coursesByTeacher;
+	}
+
+	public Course doFindCourseByName(String value) {
+		return courseServicesLocal.findCourseByName(value);
+	}
+
+	public Course getCourseSelected() {
+		return courseSelected;
+	}
+
+	public void setCourseSelected(Course courseSelected) {
+		this.courseSelected = courseSelected;
+	}
+
+	public List<Theme> getThemes() {
+		return themes;
+	}
+
+	public void setThemes(List<Theme> themes) {
+		this.themes = themes;
 	}
 
 }

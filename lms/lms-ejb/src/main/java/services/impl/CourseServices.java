@@ -13,6 +13,7 @@ import entities.Course;
 import entities.Inscription;
 import entities.Student;
 import entities.Teacher;
+import entities.Theme;
 import entities.User;
 import services.interfaces.CourseServicesLocal;
 import services.interfaces.CourseServicesRemote;
@@ -147,6 +148,23 @@ public class CourseServices implements CourseServicesRemote, CourseServicesLocal
 			students.add((Student) i.getUser());
 		}
 		return students;
+	}
+
+	@Override
+	public Course findCourseByName(String value) {
+		return entityManager.createQuery("select c from Course c where c.name=:param", Course.class)
+				.setParameter("param", value).getSingleResult();
+	}
+
+	@Override
+	public Theme findThemeByName(String name) {
+		return entityManager.createQuery("select t from Theme t where t.name=:p", Theme.class).setParameter("p", name)
+				.getSingleResult();
+	}
+
+	@Override
+	public List<Theme> findAllThemes() {
+		return entityManager.createQuery("select t from Theme t", Theme.class).getResultList();
 	}
 
 }

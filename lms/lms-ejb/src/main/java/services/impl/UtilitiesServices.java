@@ -5,11 +5,14 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entities.Agent;
 import entities.Course;
 import entities.Student;
 import entities.Teacher;
+import entities.Theme;
 import services.interfaces.CourseServicesLocal;
 import services.interfaces.UserServicesLocal;
 
@@ -24,6 +27,8 @@ public class UtilitiesServices {
 	private UserServicesLocal userServicesLocal;
 	@EJB
 	private CourseServicesLocal courseServicesLocal;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	/**
 	 * Default constructor.
@@ -65,6 +70,9 @@ public class UtilitiesServices {
 		agent.setLogin("yassine");
 		agent.setPassword("yassine");
 
+		Theme theme = new Theme("web development");
+		Theme theme2 = new Theme("maths");
+
 		userServicesLocal.addUser(student);
 		userServicesLocal.addUser(student2);
 		userServicesLocal.addUser(student3);
@@ -75,6 +83,8 @@ public class UtilitiesServices {
 
 		userServicesLocal.addUser(agent);
 
+		entityManager.persist(theme);
+		entityManager.persist(theme2);
 	}
 
 }

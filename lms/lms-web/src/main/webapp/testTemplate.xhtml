@@ -7,6 +7,13 @@
 	template="/WEB-INF/template/template.xhtml">
 	<ui:define name="pageTitle">test</ui:define>
 	<ui:define name="pageContent">
-		<h1>content</h1>
+		<h:form>
+			<h:selectOneMenu value="#{courseBean.courseSelected}" converter="cc">
+				<f:selectItem itemLabel="please select" />
+				<f:selectItems value="#{courseBean.courses}" var="c"
+					itemLabel="#{c.name}" itemValue="#{c}"></f:selectItems>
+
+			</h:selectOneMenu>
+		</h:form>
 	</ui:define>
 </ui:composition>
