@@ -8,14 +8,19 @@
 	<ui:define name="pageTitle">addCourse</ui:define>
 	<ui:define name="pageContent">
 		<h1>hello M/Mrs : #{courseBean.userBean.user.name}</h1>
-	<h:form>
-		<h:panelGrid columns="2">
-			<h:outputText value="name" />
-			<h:inputText value="#{courseBean.course.name}" />
-			<h:outputText value="name" />
-			<h:commandButton action="#{courseBean.doAddCourse()}"
-				value="add course" />
-		</h:panelGrid>
-	</h:form>
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="name" />
+				<h:inputText value="#{courseBean.course.name}" />
+				<h:outputText value="theme" />
+				<h:selectOneMenu value="#{courseBean.themeSelected}" converter="tc">
+					<f:selectItem itemValue="" itemLabel="select" />
+					<f:selectItems value="#{courseBean.themes}" var="t"
+						itemLabel="#{t.name}" itemValue="#{t}" />
+				</h:selectOneMenu>
+				<h:commandButton action="#{courseBean.doAddCourse()}"
+					value="add course" />
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>

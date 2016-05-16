@@ -26,12 +26,14 @@ public class CourseBean implements Serializable {
 	private List<Course> coursesByTeacher;
 	private Course courseSelected = new Course();
 	private List<Theme> themes = new ArrayList<>();
+	private Theme themeSelected = new Theme();
 	@EJB
 	private CourseServicesLocal courseServicesLocal;
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
 
 	public String doAddCourse() {
+		course.setTheme(themeSelected);
 		courseServicesLocal.addCourse(course, userBean.getUser());
 		return "/pages/courseManagement/listCoursesByTeacher?faces-redirect=true";
 	}
@@ -41,6 +43,10 @@ public class CourseBean implements Serializable {
 		Long idStudent = userBean.getUser().getId();
 		courseServicesLocal.registerStudentToCourse(idCourse, idStudent);
 		return "/login?faces-redirect=true";
+	}
+
+	public Theme doFindThemeByName(String value) {
+		return courseServicesLocal.findThemeByName(value);
 	}
 
 	@PostConstruct
@@ -101,6 +107,14 @@ public class CourseBean implements Serializable {
 
 	public void setThemes(List<Theme> themes) {
 		this.themes = themes;
+	}
+
+	public Theme getThemeSelected() {
+		return themeSelected;
+	}
+
+	public void setThemeSelected(Theme themeSelected) {
+		this.themeSelected = themeSelected;
 	}
 
 }
